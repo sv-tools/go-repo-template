@@ -21,7 +21,6 @@ linters:
     - gosec
     - ifshort
     - lll
-    - maligned
     - misspell
     - nestif
     - noctx
@@ -42,7 +41,9 @@ linters-settings:
   golint:
     min-confidence: 0
   govet:
-    check-shadowing: false
+    enable-all: true
+    disable:
+      - shadow
   gci:
     local-prefixes: github.com/sv-tools/go-repo-template
   gocognit:
