@@ -6,3 +6,8 @@
 [![GitHub tag (latest SemVer)](https://img.shields.io/github/v/tag/sv-tools/go-repo-template?style=flat)](https://github.com/sv-tools/go-repo-template/releases)
 
 The template for new go repositories
+
+
+## License
+
+MIT licensed. See the bundled [LICENSE](LICENSE) file for more details.
