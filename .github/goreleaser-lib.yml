@@ -1,0 +1,9 @@
+project_name: go-repo-template
+
+release:
+  github:
+    owner: sv-tools
+    name: go-repo-template
+
+builds:
+  - skip: true
