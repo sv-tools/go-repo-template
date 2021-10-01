@@ -16,7 +16,7 @@ The template for new go repositories
    4. installing all needed tools on macOS using `brew`
    5. cleaning up the `go.sum` file by removing it and re-creating by `go mod tidy`
 2. MIT License by default
-3. Github Action workflows:
+3. GitHub Action workflows:
    1. testing all pull requests by running same tools and checking code coverage using `codecov` action
    2. making a new release, triggered by closed milestone
       1. creates a new tag using `bumptag` tool
