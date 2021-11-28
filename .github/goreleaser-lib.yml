@@ -5,5 +5,8 @@ release:
     owner: sv-tools
     name: go-repo-template
 
+changelog:
+  use: github
+
 builds:
   - skip: true
