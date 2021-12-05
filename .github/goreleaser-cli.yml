@@ -4,6 +4,7 @@ release:
   github:
     owner: sv-tools
     name: go-repo-template
+  prerelease: auto
 
 changelog:
   use: github
@@ -35,7 +36,7 @@ signs:
 dockers:
   - image_templates: ["ghcr.io/sv-tools/{{ .ProjectName }}:{{ .Tag }}-amd64"]
     dockerfile: .github/Dockerfile
-    use_buildx: true
+    use: buildx
     goarch: amd64
     build_flag_templates:
       - "--platform=linux/amd64"
@@ -49,7 +50,7 @@ dockers:
       - "--label=org.opencontainers.image.licenses=MIT"
   - image_templates: ["ghcr.io/sv-tools/{{ .ProjectName }}:{{ .Tag }}-arm64v8"]
     dockerfile: .github/Dockerfile
-    use_buildx: true
+    use: buildx
     goarch: arm64
     build_flag_templates:
       - "--platform=linux/arm64/v8"
@@ -63,7 +64,7 @@ dockers:
       - "--label=org.opencontainers.image.licenses=MIT"
   - image_templates: ["svtools/{{ .ProjectName }}:{{ .Tag }}-amd64"]
     dockerfile: .github/Dockerfile
-    use_buildx: true
+    use: buildx
     goarch: amd64
     build_flag_templates:
       - "--platform=linux/amd64"
@@ -77,7 +78,7 @@ dockers:
       - "--label=org.opencontainers.image.licenses=MIT"
   - image_templates: ["svtools/{{ .ProjectName }}:{{ .Tag }}-arm64v8"]
     dockerfile: .github/Dockerfile
-    use_buildx: true
+    use: buildx
     goarch: arm64
     build_flag_templates:
       - "--platform=linux/arm64/v8"
