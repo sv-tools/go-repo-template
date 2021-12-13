@@ -1,9 +1,6 @@
 project_name: go-repo-template
 
 release:
-  github:
-    owner: sv-tools
-    name: go-repo-template
   prerelease: auto
 
 changelog:

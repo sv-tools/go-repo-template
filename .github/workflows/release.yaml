@@ -85,8 +85,6 @@ jobs:
   release-lib:
     if: github.event_name == 'push'
     runs-on: ubuntu-latest
-    env:
-      DOCKER_CLI_EXPERIMENTAL: "enabled"
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
