@@ -5,38 +5,30 @@
 [![codecov](https://codecov.io/gh/sv-tools/go-repo-template/branch/main/graph/badge.svg?token=0XVOTDR1CW)](https://codecov.io/gh/sv-tools/go-repo-template)
 [![GitHub tag (latest SemVer)](https://img.shields.io/github/v/tag/sv-tools/go-repo-template?style=flat)](https://github.com/sv-tools/go-repo-template/releases)
 
-The template for new go repositories
+The template for new go repository.
 
 ## Features
 
-1. `Makefile` to run some basic validations:
-   1. `golangci-lint`
-   2. `nancy`
-   3. unit and benchmarks tests
-   4. installing all needed tools on macOS using `brew`
-   5. cleaning up the `go.sum` file by removing it and re-creating by `go mod tidy`
-2. MIT License by default
-3. GitHub Action workflows:
-   1. testing all pull requests by running same tools and checking code coverage using `codecov` action
-   2. making a new release, triggered by closed milestone
-      1. creates a new tag using `bumptag` tool
-      2. creates new `Next` milestone
-      3. runs `goreleaser` to build a new release
+1. MIT License by default
+2. GitHub Action workflows:
+   1. testing all pull requests by running same tools for stable and previous Go version and checking code coverage using `codecov` action
+   2. checking code quality by running `golangci-lint` action
+   3. making a new release by running `goreleaser` action when a new tag is pushed
 
 ## Usage
 
 1. Create a repository using this repo as template
 2. Replace in all files `go-repo-template` to the project's name
-3. In case of:
-   1. library
-       1. Remove `.github/Dockerfile`, `.github/goreleaser-cli.yml` files
-       2. Remove `release-cli` section in the `.github/workflows/release.yaml` file
-   2. command line tool (cli)
-      1. Remove `.github/goreleaser-lib.yml` file
-      2. Remove `release-lib` section in the `.github/workflows/release.yaml` file
-4. Modify `README.md` by removing this text
-5. Feel free to modify any other files
+3. Replace `sv-tools` to the project's owner
+4. In case of library:
+    1. Remove `.github/Dockerfile`, `.github/goreleaser-cli.yml` files
+    2. Remove `release-cli` section in the `.github/workflows/release.yaml` file
+5. Modify `README.md` by removing this text
+6. Feel free to modify any other files
 
+## Recommendations
+
+Set up branch protection rules for the main branch and configure to run CodeQL analysis.
 
 ## License
 
