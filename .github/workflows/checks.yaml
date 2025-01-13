@@ -1,75 +1,66 @@
-name: "Code Analysis"
+name: Code
 
 on:
   push:
     tags:
-      - v*
+      - "v[0-9]+.[0-9]+.[0-9]+"
     branches:
       - main
+      - "v[0-9]+.[0-9]+.[0-9]+" # old releases
   pull_request:
   schedule:
-    - cron: "0 0 * * 0"
+    - cron: '38 5 * * 3' # put some random time here
 
 concurrency:
   group: ${{ format('{0}-{1}', github.workflow, github.head_ref) }}
   cancel-in-progress: true
 
-env:
-  GO: "1.17"
+permissions: read-all
 
 jobs:
-  CodeQL:
+  UnitTestJob:
     runs-on: ubuntu-latest
-
-    permissions:
-      security-events: write
-
+    strategy:
+      matrix:
+        go:
+          - 'oldstable'
+          - 'stable'
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
-
-      - name: Initialize CodeQL
-        uses: github/codeql-action/init@v3
-        with:
-          languages: go
-
-      - name: Perform CodeQL Analysis
-        uses: github/codeql-action/analyze@v3
-
-  UnitTests:
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-
+        uses: actions/checkout@v4.2.2 # immutable action, safe to use the versions
       - name: Install Go
-        uses: actions/setup-go@v5
+        uses: actions/setup-go@v5.2.0 # immutable action, safe to use the versions
         with:
-          go-version: ${{ env.GO }}
-
+          go-version: ${{ matrix.go }}
       - name: Run Unit Tests
-        run: go test -race -cover -coverprofile=coverage.out -covermode=atomic
-
+        run: go test -race -cover -coverprofile=coverage.out -covermode=atomic ./...
       - name: Codecov
-        uses: codecov/codecov-action@v5.1.2
-        with:
-          file: ./coverage.out
+        uses: codecov/codecov-action@1e68e06f1dbfde0e4cefc87efeba9e4643565303 # v5.1.2
+        env:
+          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
 
   GolangCI-Lint:
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v4.2.2 # immutable action
 
       - name: Install Go
-        uses: actions/setup-go@v5
+        uses: actions/setup-go@v5.2.0 # immutable action
         with:
-          go-version: ${{ env.GO }}
+          go-version: 'stable'
 
       - name: Run GolangCi-Lint
-        uses: golangci/golangci-lint-action@v6.1.1
+        uses: golangci/golangci-lint-action@971e284b6050e8a5849b72094c50ab08da042db8 # v6.1.1
         with:
           version: latest
-          skip-build-cache: true
+
+  UnitTests:
+    if: ${{ always() }}
+    needs: UnitTestJob
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check status
+        if: ${{ needs.UnitTestJob.result != 'success' }}
+        run: exit 1

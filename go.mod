@@ -1,3 +1,3 @@
 module github.com/sv-tools/go-repo-template
 
-go 1.17
+go 1.22.0 // old stable version as minimal supported by default
