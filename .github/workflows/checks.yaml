@@ -27,7 +27,7 @@ jobs:
           - 'stable'
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4.2.2 # immutable action, safe to use the versions
+        uses: actions/checkout@v5 # immutable action, safe to use the versions
       - name: Install Go
         uses: actions/setup-go@v5.2.0 # immutable action, safe to use the versions
         with:
@@ -44,7 +44,7 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4.2.2 # immutable action
+        uses: actions/checkout@v5 # immutable action
 
       - name: Install Go
         uses: actions/setup-go@v5.2.0 # immutable action
