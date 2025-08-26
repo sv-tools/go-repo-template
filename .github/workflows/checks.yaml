@@ -18,16 +18,25 @@ concurrency:
 permissions: read-all
 
 jobs:
+  GoVersions:
+    name: Lookup Go versions
+    runs-on: ubuntu-latest
+    outputs:
+      matrix: ${{ steps.versions.outputs.matrix }}
+    steps:
+      - uses: actions/checkout@v5.0.0 # immutable action, safe to use the versions
+      - uses: arnested/go-version-action@81f730770833dd20e6365d535ce7efcb3b136e7d #v1.1.21
+        id: versions
+
   UnitTestJob:
     runs-on: ubuntu-latest
+    needs: GoVersions
     strategy:
       matrix:
-        go:
-          - 'oldstable'
-          - 'stable'
+        go: ${{ fromJSON(needs.GoVersions.outputs.matrix) }}
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v5 # immutable action, safe to use the versions
+        uses: actions/checkout@v5.0.0 # immutable action, safe to use the versions
       - name: Install Go
         uses: actions/setup-go@v5.2.0 # immutable action, safe to use the versions
         with:
@@ -44,10 +53,10 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v5 # immutable action
+        uses: actions/checkout@v5.0.0 # immutable action, safe to use the versions
 
       - name: Install Go
-        uses: actions/setup-go@v5.2.0 # immutable action
+        uses: actions/setup-go@v5.2.0 # immutable action, safe to use the versions
         with:
           go-version: 'stable'
 
