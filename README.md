@@ -11,9 +11,10 @@ The template for new go repository.
 
 1. MIT License by default
 2. GitHub Action workflows:
-   1. testing all pull requests by running same tools for stable and previous Go version and checking code coverage using `codecov` action
-   2. checking code quality by running `golangci-lint` action
-   3. making a new release by running `goreleaser` action when a new tag is pushed
+    1. testing all pull requests by running same tools for stable and previous Go version and checking code coverage
+       using `codecov` action
+    2. checking code quality by running `golangci-lint` action
+    3. making a new release by running `goreleaser` action when a new tag is pushed
 
 ## Usage
 
