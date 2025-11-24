@@ -24,8 +24,8 @@ jobs:
     outputs:
       matrix: ${{ steps.versions.outputs.matrix }}
     steps:
-      - uses: actions/checkout@v5.0.0 # immutable action, safe to use the versions
-      - uses: arnested/go-version-action@1f4135a30a2498f919e428c81c342f9334b3a93d #v1.1.22
+      - uses: actions/checkout@v6.0.0 # immutable action, safe to use the versions
+      - uses: arnested/go-version-action@978371bd4d8cad0f54106c8be4273e2fcdd74f57 #v1.1.23
         id: versions
 
   UnitTestJob:
@@ -36,9 +36,9 @@ jobs:
         go: ${{ fromJSON(needs.GoVersions.outputs.matrix) }}
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v5.0.0 # immutable action, safe to use the versions
+        uses: actions/checkout@v6.0.0 # immutable action, safe to use the versions
       - name: Install Go
-        uses: actions/setup-go@v6.0.0 # immutable action, safe to use the versions
+        uses: actions/setup-go@v6.1.0 # immutable action, safe to use the versions
         with:
           go-version: ${{ matrix.go }}
       - name: Run Unit Tests
@@ -53,10 +53,10 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v5.0.0 # immutable action, safe to use the versions
+        uses: actions/checkout@v6.0.0 # immutable action, safe to use the versions
 
       - name: Install Go
-        uses: actions/setup-go@v6.0.0 # immutable action, safe to use the versions
+        uses: actions/setup-go@v6.1.0 # immutable action, safe to use the versions
         with:
           go-version: 'stable'
 
