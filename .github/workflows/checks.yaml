@@ -24,8 +24,8 @@ jobs:
     outputs:
       matrix: ${{ steps.versions.outputs.matrix }}
     steps:
-      - uses: actions/checkout@v5.0.0 # immutable action, safe to use the versions
-      - uses: arnested/go-version-action@1f4135a30a2498f919e428c81c342f9334b3a93d #v1.1.22
+      - uses: actions/checkout@v6.0.1 # immutable action, safe to use the versions
+      - uses: arnested/go-version-action@978371bd4d8cad0f54106c8be4273e2fcdd74f57 #v1.1.23
         id: versions
 
   UnitTestJob:
@@ -36,15 +36,15 @@ jobs:
         go: ${{ fromJSON(needs.GoVersions.outputs.matrix) }}
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v5.0.0 # immutable action, safe to use the versions
+        uses: actions/checkout@v6.0.1 # immutable action, safe to use the versions
       - name: Install Go
-        uses: actions/setup-go@v6.0.0 # immutable action, safe to use the versions
+        uses: actions/setup-go@v6.1.0 # immutable action, safe to use the versions
         with:
           go-version: ${{ matrix.go }}
       - name: Run Unit Tests
         run: go test -race -cover -coverprofile=coverage.out -covermode=atomic ./...
       - name: Codecov
-        uses: codecov/codecov-action@5a1091511ad55cbe89839c7260b706298ca349f7 # v5.5.1
+        uses: codecov/codecov-action@671740ac38dd9b0130fbe1cec585b89eea48d3de # v5.5.2
         env:
           CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
 
@@ -53,10 +53,10 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v5.0.0 # immutable action, safe to use the versions
+        uses: actions/checkout@v6.0.1 # immutable action, safe to use the versions
 
       - name: Install Go
-        uses: actions/setup-go@v6.0.0 # immutable action, safe to use the versions
+        uses: actions/setup-go@v6.1.0 # immutable action, safe to use the versions
         with:
           go-version: 'stable'
 

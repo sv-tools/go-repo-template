@@ -15,10 +15,10 @@ jobs:
       DOCKER_CLI_EXPERIMENTAL: "enabled"
     steps:
       - name: Checkout code
-        uses: actions/checkout@v5.0.0 # immutable action, safe to use the versions
+        uses: actions/checkout@v6.0.1 # immutable action, safe to use the versions
 
       - name: Install Go
-        uses: actions/setup-go@v6.0.0 # immutable action, safe to use the versions
+        uses: actions/setup-go@v6.1.0 # immutable action, safe to use the versions
         with:
           go-version: 'stable'
 
